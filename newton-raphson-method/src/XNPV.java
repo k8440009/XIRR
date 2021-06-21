@@ -48,7 +48,7 @@ public class XNPV implements NewtonFunction{
 			if ( diff < 0){
 				return new NewtonStatus(NewtonStatus.GOAL_SEEK_ERROR, null);
 			}
-			sum += values.get(i) / Math.pow(rate, diff / 365.0);
+			sum += values.get(i) / Math.pow(1 + rate, diff / 365.0);
 
 			Util.log("dates.get(i) : " + dates.get(i) + " dates.get(0) : " + dates.get(0) + " sum : " + sum);
 		}

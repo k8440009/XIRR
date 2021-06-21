@@ -23,7 +23,7 @@ public class Util {
 	 * @return
 	 */
 	public static int getExcelDateValue(Calendar date) {
-		GregorianCalendar dateStart = new GregorianCalendar(1899, 11, 30);
+		GregorianCalendar dateStart = new GregorianCalendar(1900, 1, 1);
 		return getDaysBetween(dateStart, date);
 	}
 

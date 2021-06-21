@@ -39,6 +39,7 @@ public class ExecuteXIRR {
 			dates[3]            = XIRRData.getExcelDateValue( new GregorianCalendar(2016, 7, 25) ) ;
 			dates[4]            = XIRRData.getExcelDateValue( new GregorianCalendar(2016, 10, 30) ) ;
 		*/
+		
 		values.add(-5000000.0);
 		values.add(1300000.0);
 		values.add(1200000.0);
@@ -50,8 +51,24 @@ public class ExecuteXIRR {
 		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2016, 4, 30)));
 		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2016, 7, 25)));
 		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2016, 10, 30)));
+		
+		/*
+		values.add(-10000.0);
+		values.add(2750.0);
+		values.add(4250.0);
+		values.add(3250.0);
+		values.add(2750.0);
 
+		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2008, 1, 1)));
+		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2008, 3, 1)));
+		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2008, 10, 30)));
+		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2009, 2, 15)));
+		dates.add((double)Util.getExcelDateValue( new GregorianCalendar(2009, 4, 1)));
+		*/
 		DataSet data       = new DataSet( 5, 0.1, values, dates ) ;
+		//Util.log("test : " + Util.getDaysBetween(new GregorianCalendar(2016, 1, 30), new GregorianCalendar(2016, 4, 30)));
+		//getDaysBetween
+		// Util.log("test : " + ((double)Util.getExcelDateValue(dates.get(2))) - ((double)Util.getExcelDateValue(dates.get(0)))));
 		
 		// Util.log("getArrSize() : " + data.getArrSize());
 		Util.log("getDates() : " + data.getDates());
