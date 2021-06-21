@@ -30,6 +30,6 @@ package in.satpathy.math;
  */
 public interface GoalSeekFunction {
 
-	public GoalSeekStatus f( double rate, Object userData ) ;
+    public GoalSeekStatus f( double rate, Object userData ) ;
 
 }   /*  End of the GoalSeekFunction interface. */

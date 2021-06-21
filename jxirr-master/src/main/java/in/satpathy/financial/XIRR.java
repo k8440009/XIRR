@@ -35,47 +35,59 @@ import in.satpathy.math.GoalSeekStatus ;
  */
 public class XIRR {
 
-	/*
-	 *  Excel stores dates as sequential serial numbers so they can be used
-	 *  in calculations. By default, January 1, 1900 is serial number 1, and
-	 *  January 1, 2008 is serial number 39448 because it is 39,448 days
-	 *  after January 1, 1900.
-	 */
+    /*
+     *  Excel stores dates as sequential serial numbers so they can be used
+     *  in calculations. By default, January 1, 1900 is serial number 1, and
+     *  January 1, 2008 is serial number 39448 because it is 39,448 days
+     *  after January 1, 1900.
+     */
 
-	/**
-	 *  Calculate XIRR.
-	 *
-	 *  @param xirrData
-	 *  @return
-	 */
-	public static double xirr( XIRRData xirrData ) 	{
-		GoalSeekData    data ;
-		GoalSeekStatus  status ;
-		double          result ;
-		double          rate0 ;
-		int             n ;
-		int             d_n ;
+    /**
+     *  Calculate XIRR.
+     *
+     *  @param xirrData
+     *  @return
+     */
+    public static double xirr( XIRRData xirrData ) 	{
+        GoalSeekData    data ;
+        GoalSeekStatus  status ;
+        double          result ;
+        double          rate0 ;
+        int             n ;
+        int             d_n ;
 
-		data        = new GoalSeekData() ;
-		GoalSeek.goal_seek_initialize( data ) ;
-		data.xmin   = -1;
-		data.xmax   = Math.min( 1000, data.xmax ) ;
-		rate0       = xirrData.guess ; //argv[2] ? value_get_as_float (argv[2]) : 0.1;
+        data        = new GoalSeekData() ;
+        GoalSeek.goal_seek_initialize( data ) ;
+        
+        
+        data.xmin   = -1;
+        data.xmax   = Math.min( 1000, data.xmax ) ;
+        rate0       = xirrData.guess ; //argv[2] ? value_get_as_float (argv[2]) : 0.1;
 
-		status = GoalSeek.goalSeekNewton(
-		            new XIRRNPV(), null, data, xirrData, rate0 ) ;
+        log(">>>>>>>>>>>>>>>>> data.xmin : " + data.xmin);
+        log(">>>>>>>>>>>>>>>>> data.xmax : " + data.xmax);
+        log("\n");
 
-		if (status.seekStatus == GoalSeekStatus.GOAL_SEEK_OK)  {
+        status = GoalSeek.goalSeekNewton(
+                    new XIRRNPV(), null, data, xirrData, rate0 ) ;
+
+        log( ">>>>>>>>>>>>>> end goalSeekNewton <<<<<<<<<<<<" ) ;
+        
+        if (status.seekStatus == GoalSeekStatus.GOAL_SEEK_OK)  {
 //			result = value_new_float(data.root);
-			result = ((Double) status.returnData).doubleValue() ;    //data.root ;
-		}
-		else    {
+            result = ((Double) status.returnData).doubleValue() ;    //data.root ;
+        }
+        else    {
 //			result = value_new_error_NUM (ei.pos);
-			result = Double.NaN ;
-		}
+            result = Double.NaN ;
+        }
 
-		System.out.println( "XIRR Result - " + result ) ;
-		return (Double.isNaN(result)) ? (result - 1) : result ;
-	}
+        System.out.println( "XIRR Result - " + result ) ;
+        return (Double.isNaN(result)) ? (result - 1) : result ;
+    }
+
+    public static void log( String message ) {
+        System.out.println( message ) ;
+    }
 
 }   /*  End of the XIRR class. */

@@ -22,7 +22,7 @@ package in.satpathy.financial;
 
 /*
  *  Imports
- */
+ */ 
 import in.satpathy.math.GoalSeekStatus ;
 import in.satpathy.math.GoalSeekFunction ;
 
@@ -32,41 +32,50 @@ import in.satpathy.math.GoalSeekFunction ;
  */
 public class XIRRNPV implements GoalSeekFunction {
 
-	/**
-	 *  Default Constructor.
-	 */
-	public XIRRNPV() {
-	}
+    /**
+     *  Default Constructor.
+     */
+    public XIRRNPV() {
+    }
 
-	/**
-	 *
-	 *  @param rate
-	 *  @param y
-	 *  @param userData
-	 *  @return
-	 */
-	public GoalSeekStatus f( double rate, Object userData ) {
-		XIRRData    p ;
-		double[]    values ;
-		double[]    dates ;
-		double      sum ;
-		int         n ;
+    /**
+     *
+     *  @param rate
+     *  @param y
+     *  @param userData
+     *  @return
+     */
+    public GoalSeekStatus f( double rate, Object userData ) {
+        XIRRData    p ;
+        double[]    values ;
+        double[]    dates ;
+        double      sum ;
+        int         n ;
 
-		p       = (XIRRData) userData ;
-		values  = p.values ;
-		dates   = p.dates ;
-		n       = p.n ;
-		sum     = 0 ;
-		for ( int i = 0; i < n; i++ ) {
-			double d = dates[i] - dates[0];
-			if ( d < 0 )  {
-				return new GoalSeekStatus( GoalSeekStatus.GOAL_SEEK_ERROR, null) ;
-			}
-		    sum += values[i] / Math.pow(rate, d / 365.0) ; //pow1p( rate, d / 365.0 ) ;
-		}
+        log(">>>>>>>>>>>>>>>>>> XIRRNPV start <<<<<<<<<<<<<<<<<<");
+        p       = (XIRRData) userData ;
+        values  = p.values ;
+        dates   = p.dates ;
+        n       = p.n ;
+        sum     = 0 ;
+        for ( int i = 0; i < n; i++ ) {
+            double d = dates[i] - dates[0];
+            if ( d < 0 )  {
+                return new GoalSeekStatus( GoalSeekStatus.GOAL_SEEK_ERROR, null) ;
+            }
+            sum += values[i] / Math.pow(rate, d / 365.0) ; //pow1p( rate, d / 365.0 ) ;
+
+            log("dates.get(i) : " + dates[i] + " dates.get(0) : " + dates[0] + " sum : " + sum);
+        }
+        log(">>>>>>>>>>>>>> XIRRNPV value : " + sum);
 
 //		GoalSeekStatus.returnData = new Double( sum ) ;
-		return new GoalSeekStatus( GoalSeekStatus.GOAL_SEEK_OK, new Double(sum) ) ;
-	}
 
+        log(">>>>>>>>>>>>>>>>>> XIRRNPV end <<<<<<<<<<<<<<<<<<");
+        return new GoalSeekStatus( GoalSeekStatus.GOAL_SEEK_OK, new Double(sum) ) ;
+    }
+    
+    private static void log( String message ) {
+        System.out.println( message ) ;
+    }
 }   /*  End of the XIRRNPV class. */
